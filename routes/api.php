@@ -1,10 +1,11 @@
 <?php
 
+use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\HoSoController;
 use App\Http\Controllers\PhuongController;
 use App\Http\Controllers\QuanController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,21 +21,35 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-//Ho So
-Route::prefix('v1')->name('v1')->group(function () {
-    // Route::get('/hoso', [HoSoController::class, 'index']);
-    // Route::post('/hoso', [HoSoController::class, 'store']);
-    // Route::get('/hoso/{id}', [HoSoController::class, 'show']);
-    // Route::put('/hoso/{id}/edit', [HoSoController::class, 'edit']);
-    // Route::delete('/hoso/{id}/delete', [HoSoController::class, 'destroy']);
-    Route::resource('hoso', HoSoController::class);
-    Route::get('/danhsachhoso', [HoSoController::class, 'getDanhSachChiTietHoSo']);
-    Route::get('/danhsachhosothuly', [HoSoController::class, 'getDanhSachHoSoThuLy']);
-    Route::put('/capnhattrangthai/{id}', [HoSoController::class, 'updateChiTietHoSo']);
-    Route::put('/capnhatketqua/{id}', [HoSoController::class, 'updateKetQuaChiTietHoSo']);
-    Route::put('/tralaihoso/{id}', [HoSoController::class, 'updateTraLaiChiTietHoSo']);
-    Route::resource('quan', QuanController::class);
-    Route::get('/quan/{id}/phuong', [QuanController::class, 'showPhuong']);
-    Route::resource('phuong', PhuongController::class);
-    Route::get('/phuong/{id}/quan', [PhuongController::class, 'showQuan']);
+//User
+Route::controller(AuthController::class)->group(function () {
+    Route::post('register', 'register');
+    Route::post('login', 'login');
 });
+//Ho So
+// Route::get('/hoso', [HoSoController::class, 'index']);
+// Route::post('/hoso', [HoSoController::class, 'store']);
+// Route::get('/hoso/{id}', [HoSoController::class, 'show']);
+// Route::put('/hoso/{id}/edit', [HoSoController::class, 'edit']);
+// Route::delete('/hoso/{id}/delete', [HoSoController::class, 'destroy']);
+Route::resource('hoso', HoSoController::class);
+Route::get('/danhsachhoso', [HoSoController::class, 'getDanhSachChiTietHoSo']);
+Route::get('/danhsachhosothuly', [HoSoController::class, 'getDanhSachHoSoThuLy']);
+Route::put('/capnhattrangthai/{id}', [HoSoController::class, 'updateChiTietHoSo']);
+Route::put('/capnhatketqua/{id}', [HoSoController::class, 'updateKetQuaChiTietHoSo']);
+Route::put('/tralaihoso/{id}', [HoSoController::class, 'updateTraLaiChiTietHoSo']);
+Route::resource('quan', QuanController::class);
+Route::get('/quan/{id}/phuong', [QuanController::class, 'showPhuong']);
+Route::resource('phuong', PhuongController::class);
+Route::get('/phuong/{id}/quan', [PhuongController::class, 'showQuan']);
+
+
+// Route::middleware(['auth:sanctum', 'isAPIAdmin'])->group(function () {
+//     Route::get('/checkingAuthenticated', function () {
+//         return response()->json(['message' => 'You are in', 'status' => 200], 200);
+//     });
+// });
+
+// Route::middleware(['auth:sanctum'])->group(function () {
+//     Route::post('logout', [AuthController::class, 'logout']);
+// });
