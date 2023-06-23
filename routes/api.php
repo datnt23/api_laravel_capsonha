@@ -21,35 +21,23 @@ use Illuminate\Http\Request;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-//User
 Route::controller(AuthController::class)->group(function () {
     Route::post('register', 'register');
     Route::post('login', 'login');
 });
-//Ho So
-// Route::get('/hoso', [HoSoController::class, 'index']);
-// Route::post('/hoso', [HoSoController::class, 'store']);
-// Route::get('/hoso/{id}', [HoSoController::class, 'show']);
-// Route::put('/hoso/{id}/edit', [HoSoController::class, 'edit']);
-// Route::delete('/hoso/{id}/delete', [HoSoController::class, 'destroy']);
-Route::resource('hoso', HoSoController::class);
-Route::get('/danhsachhoso', [HoSoController::class, 'getDanhSachChiTietHoSo']);
-Route::get('/danhsachhosothuly', [HoSoController::class, 'getDanhSachHoSoThuLy']);
-Route::put('/capnhattrangthai/{id}', [HoSoController::class, 'updateChiTietHoSo']);
-Route::put('/capnhatketqua/{id}', [HoSoController::class, 'updateKetQuaChiTietHoSo']);
-Route::put('/tralaihoso/{id}', [HoSoController::class, 'updateTraLaiChiTietHoSo']);
-Route::resource('quan', QuanController::class);
-Route::get('/quan/{id}/phuong', [QuanController::class, 'showPhuong']);
-Route::resource('phuong', PhuongController::class);
-Route::get('/phuong/{id}/quan', [PhuongController::class, 'showQuan']);
-
-
-// Route::middleware(['auth:sanctum', 'isAPIAdmin'])->group(function () {
-//     Route::get('/checkingAuthenticated', function () {
-//         return response()->json(['message' => 'You are in', 'status' => 200], 200);
-//     });
-// });
-
-// Route::middleware(['auth:sanctum'])->group(function () {
-//     Route::post('logout', [AuthController::class, 'logout']);
-// });
+Route::middleware(['auth:sanctum', 'role:user'])->prefix('user')->group(function () {
+    Route::resource('hoso', HoSoController::class);
+    Route::resource('quan', QuanController::class);
+    Route::get('/quan/{id}/phuong', [QuanController::class, 'showPhuong']);
+    Route::resource('phuong', PhuongController::class);
+    Route::get('/phuong/{id}/quan', [PhuongController::class, 'showQuan']);
+});
+Route::middleware(['auth:sanctum', 'role:chuyen_vien'])->prefix('chuyen_vien')->group(function () {
+    Route::get('/danhsachhoso', [HoSoController::class, 'getDanhSachChiTietHoSo']);
+    Route::put('/capnhattrangthai/{id}', [HoSoController::class, 'updateChiTietHoSo']);
+});
+Route::middleware(['auth:sanctum', 'role:truong_phong'])->prefix('truong_phong')->group(function () {
+    Route::get('/danhsachhosothuly', [HoSoController::class, 'getDanhSachHoSoThuLy']);
+    Route::put('/capnhatketqua/{id}', [HoSoController::class, 'updateKetQuaChiTietHoSo']);
+    Route::put('/tralaihoso/{id}', [HoSoController::class, 'updateTraLaiChiTietHoSo']);
+});

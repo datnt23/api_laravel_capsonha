@@ -24,6 +24,8 @@ class DatabaseSeeder extends Seeder
             QuanSeeder::class,
             HoSoTableSeeder::class,
             TrangThaiSeeder::class,
+            RoleSeeder::class,
+            UserSeeder::class,
         ]);
     }
 }
