@@ -112,6 +112,11 @@ function XemXetHoSo() {
                     Trạng thái:{" "}
                     {dataHoSo.get_chi_tiet_ho_so.get_trang_thai.ten_trang_thai}
                 </div>
+                {dataHoSo.get_chi_tiet_ho_so.loi_nhan ? (
+                    <div>Lời nhắn: {dataHoSo.get_chi_tiet_ho_so.loi_nhan}</div>
+                ) : (
+                    <></>
+                )}
                 <div>Ý kiến của chuyên viên:</div>
                 <textarea
                     cols="40"

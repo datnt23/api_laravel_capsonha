@@ -68,7 +68,8 @@ class HoSoController extends Controller
                     $query->where('id_trang_thai', 4)
                         ->orWhere('id_trang_thai', 1);
                 })
-                ->get();
+                // ->get();
+                ->paginate(5); //Phân mỗi trang 5 phần tử
             return response()->json($danh_sach_ho_so, 200);
         } catch (\Throwable $th) {
             return response()->json([
@@ -83,7 +84,8 @@ class HoSoController extends Controller
                 ->whereHas('getChiTietHoSo', function ($query) {
                     $query->where('id_trang_thai', 2);
                 })
-                ->get();
+                // ->get();
+                ->paginate(5);
             return response()->json($danh_sach_ho_so, 200);
         } catch (\Throwable $th) {
             return response()->json([

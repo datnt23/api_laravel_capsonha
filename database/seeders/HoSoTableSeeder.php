@@ -15,7 +15,6 @@ class HoSoTableSeeder extends Seeder
     {
         // $ho_sos = [
         //     [
-        //         'id' => 1,
         //         'ho_ten_chu_ho' => 'Nguyễn Văn A',
         //         'so_to' => 12,
         //         'so_thua' => 28,
@@ -23,7 +22,6 @@ class HoSoTableSeeder extends Seeder
         //         'id_quan' => 1,
         //     ],
         //     [
-        //         'id' => 2,
         //         'ho_ten_chu_ho' => 'Nguyễn Văn B',
         //         'so_to' => 14,
         //         'so_thua' => 38,
